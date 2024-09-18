@@ -1,0 +1,51 @@
+﻿@model BestStoreMVC.Models.DashboardViewModel
+
+<h2>Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Customers</h5>
+                <p class="card-text">@Model.TotalCustomers</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Orders</h5>
+                <p class="card-text">@Model.TotalOrders</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Products</h5>
+                <p class="card-text">@Model.TotalProducts</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Recent Orders</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order Date</th>
+            <th>Customer</th>
+            <th>Total Items</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.RecentOrders)
+        {
+            <tr>
+                <td>@order.OrderDate.ToString("MM/dd/yyyy")</td>
+                <td>@order.Customer.Name</td>
+                <td>@order.OrderItems.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>

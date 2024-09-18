@@ -1,0 +1,65 @@
+﻿@model BestStoreMVC.Models.Order
+
+<h2>Create Order</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="OrderDate" class="control-label"></label>
+        <input asp-for="OrderDate" class="form-control" />
+        <span asp-validation-for="OrderDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CustomerId" class="control-label"></label>
+        <input asp-for="CustomerId" class="form-control" />
+        <span asp-validation-for="CustomerId" class="text-danger"></span>
+    </div>
+
+    <h3>Order Items</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="orderItems">
+            <tr>
+                <td>
+                    <select name="productIds" class="form-control">
+                        @if (ViewBag.Products != null)
+                        {
+                            foreach (var product in ViewBag.Products)
+                            {
+                                <option value="@product.Id">@product.Name</option>
+                            }
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input type="number" name="quantities" class="form-control" />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger remove-item">Remove</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" id="addItem" class="btn btn-secondary">Add Item</button>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById('addItem').addEventListener('click', function () {
+            var orderItems = document.getElementById('orderItems');
+            var newRow = orderItems.rows[0].cloneNode(true);
+            newRow.querySelector('.remove-item').addEventListener('click', function () {
+                this.closest('tr').remove();
+            });
+            orderItems.appendChild(newRow);
+        });
+    </script>
+}
